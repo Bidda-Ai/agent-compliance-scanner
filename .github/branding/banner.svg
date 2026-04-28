@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" font-family="'Outfit', 'Inter', system-ui, -apple-system, sans-serif">
+  <!--
+    Bidda Agent Compliance Scanner — GitHub Marketplace banner
+    Spec: 1280x640 px, matches bidda.com palette (navy + gold).
+    Convert to PNG: see ../README.md or use any of these:
+      - Open in Chrome, right-click → "Save image as…"
+      - inkscape banner.svg --export-filename=banner.png
+      - magick banner.svg -resize 1280x640 banner.png
+      - https://cloudconvert.com/svg-to-png
+  -->
+
+  <!-- ── Definitions: gradients + filters ─────────────────────────────────── -->
+  <defs>
+    <!-- Background radial spotlight in upper-right -->
+    <radialGradient id="bg-spot" cx="80%" cy="20%" r="65%">
+      <stop offset="0%"  stop-color="#1A365D" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#0A0F1C" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gold gradient for headline text -->
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#F4D469"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#A88828"/>
+    </linearGradient>
+
+    <!-- Soft drop-shadow for cards -->
+    <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Glowing leaf — gold halo -->
+    <filter id="leaf-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#D4AF37" flood-opacity="0.35"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ── Background ───────────────────────────────────────────────────────── -->
+  <rect width="1280" height="640" fill="#0A0F1C"/>
+  <rect width="1280" height="640" fill="url(#bg-spot)"/>
+
+  <!-- Subtle dotted grid (circuit-board feel) -->
+  <g opacity="0.10" fill="#D4AF37">
+    <pattern id="dotgrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2"/>
+    </pattern>
+    <rect width="1280" height="640" fill="url(#dotgrid)"/>
+  </g>
+
+  <!-- ── Bidda leaf logo (vector recreation) ──────────────────────────────── -->
+  <!-- Positioned top-left, 200x200 -->
+  <g transform="translate(80,120)" filter="url(#leaf-glow)">
+    <!-- Leaf outline — teardrop shape pointing up -->
+    <path d="M 100 8
+             C 158 8, 192 60, 192 130
+             C 192 195, 158 248, 100 252
+             C 42 248, 8 195, 8 130
+             C 8 60, 42 8, 100 8
+             Z"
+          fill="none" stroke="#D4AF37" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Central trunk/vein -->
+    <line x1="100" y1="30" x2="100" y2="252" stroke="#D4AF37" stroke-width="3"/>
+
+    <!-- Side veins (circuit traces) — symmetric pairs -->
+    <g stroke="#D4AF37" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <!-- Tier 1 (high) -->
+      <path d="M 100 60 L 70 50 L 60 35"/>
+      <path d="M 100 60 L 130 50 L 140 35"/>
+      <!-- Tier 2 -->
+      <path d="M 100 100 L 60 95 L 45 78"/>
+      <path d="M 100 100 L 140 95 L 155 78"/>
+      <path d="M 100 100 L 75 110 L 55 105"/>
+      <path d="M 100 100 L 125 110 L 145 105"/>
+      <!-- Tier 3 (mid) -->
+      <path d="M 100 145 L 55 145 L 35 132"/>
+      <path d="M 100 145 L 145 145 L 165 132"/>
+      <path d="M 100 145 L 70 160 L 45 165"/>
+      <path d="M 100 145 L 130 160 L 155 165"/>
+      <!-- Tier 4 (low) -->
+      <path d="M 100 195 L 65 200 L 50 215"/>
+      <path d="M 100 195 L 135 200 L 150 215"/>
+      <path d="M 100 195 L 80 215 L 65 230"/>
+      <path d="M 100 195 L 120 215 L 135 230"/>
+    </g>
+
+    <!-- Circuit endpoint nodes — small filled gold circles -->
+    <g fill="#D4AF37">
+      <circle cx="60" cy="35" r="3.5"/>
+      <circle cx="140" cy="35" r="3.5"/>
+      <circle cx="45" cy="78" r="3.5"/>
+      <circle cx="155" cy="78" r="3.5"/>
+      <circle cx="55" cy="105" r="3.5"/>
+      <circle cx="145" cy="105" r="3.5"/>
+      <circle cx="35" cy="132" r="3.5"/>
+      <circle cx="165" cy="132" r="3.5"/>
+      <circle cx="45" cy="165" r="3.5"/>
+      <circle cx="155" cy="165" r="3.5"/>
+      <circle cx="50" cy="215" r="3.5"/>
+      <circle cx="150" cy="215" r="3.5"/>
+      <circle cx="65" cy="230" r="3.5"/>
+      <circle cx="135" cy="230" r="3.5"/>
+    </g>
+
+    <!-- Leaf stem -->
+    <line x1="100" y1="252" x2="100" y2="280" stroke="#D4AF37" stroke-width="3"/>
+  </g>
+
+  <!-- ── Headline ─────────────────────────────────────────────────────────── -->
+  <g transform="translate(360, 180)">
+    <!-- BIDDA wordmark -->
+    <text x="0" y="0"
+          font-size="42"
+          font-weight="500"
+          letter-spacing="14"
+          fill="#D4AF37"
+          font-family="'Outfit', 'Inter', system-ui, sans-serif">BIDDA</text>
+
+    <!-- Divider line -->
+    <line x1="0" y1="20" x2="160" y2="20" stroke="#D4AF37" stroke-width="2" opacity="0.6"/>
+
+    <!-- Product title — main hero text -->
+    <text x="0" y="92"
+          font-size="64"
+          font-weight="700"
+          fill="url(#gold-grad)"
+          font-family="'Outfit', 'Inter', system-ui, sans-serif">Agent Compliance</text>
+    <text x="0" y="166"
+          font-size="64"
+          font-weight="700"
+          fill="url(#gold-grad)"
+          font-family="'Outfit', 'Inter', system-ui, sans-serif">Scanner</text>
+
+    <!-- Tagline -->
+    <text x="0" y="220"
+          font-size="22"
+          font-weight="400"
+          fill="#E5E7EB"
+          font-family="'Inter', system-ui, sans-serif">Free GitHub Action — flag non-compliant AI agent code on every PR.</text>
+
+    <text x="0" y="252"
+          font-size="18"
+          font-weight="400"
+          fill="#94A3B8"
+          font-family="'Inter', system-ui, sans-serif">Backed by 3,543 cryptographically-signed regulatory nodes.</text>
+  </g>
+
+  <!-- ── Regulation pills (right side could be cluttered; place under tagline) -->
+  <g transform="translate(360, 460)">
+    <!-- Pill template repeated -->
+    <g font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="600">
+
+      <g transform="translate(0,0)">
+        <rect rx="14" ry="14" width="100" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="50" y="19" text-anchor="middle" fill="#F4D469">EU AI Act</text>
+      </g>
+
+      <g transform="translate(115,0)">
+        <rect rx="14" ry="14" width="70" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="35" y="19" text-anchor="middle" fill="#F4D469">DORA</text>
+      </g>
+
+      <g transform="translate(200,0)">
+        <rect rx="14" ry="14" width="70" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="35" y="19" text-anchor="middle" fill="#F4D469">GDPR</text>
+      </g>
+
+      <g transform="translate(285,0)">
+        <rect rx="14" ry="14" width="115" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="57.5" y="19" text-anchor="middle" fill="#F4D469">NIST AI RMF</text>
+      </g>
+
+      <g transform="translate(415,0)">
+        <rect rx="14" ry="14" width="120" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="60" y="19" text-anchor="middle" fill="#F4D469">NYC LL 144</text>
+      </g>
+
+      <g transform="translate(0,42)">
+        <rect rx="14" ry="14" width="105" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="52.5" y="19" text-anchor="middle" fill="#F4D469">FDA SaMD</text>
+      </g>
+
+      <g transform="translate(120,42)">
+        <rect rx="14" ry="14" width="125" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="62.5" y="19" text-anchor="middle" fill="#F4D469">ISO/IEC 42001</text>
+      </g>
+
+      <g transform="translate(260,42)">
+        <rect rx="14" ry="14" width="65" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="32.5" y="19" text-anchor="middle" fill="#F4D469">NIS2</text>
+      </g>
+
+      <g transform="translate(340,42)">
+        <rect rx="14" ry="14" width="120" height="28" fill="#1A365D" stroke="#D4AF37" stroke-width="1" opacity="0.9"/>
+        <text x="60" y="19" text-anchor="middle" fill="#F4D469">Colorado AI</text>
+      </g>
+
+      <g transform="translate(475,42)">
+        <text x="0" y="19" fill="#94A3B8" font-weight="400">+ 25 more</text>
+      </g>
+
+    </g>
+  </g>
+
+  <!-- ── Bottom-right URL ────────────────────────────────────────────────── -->
+  <text x="1200" y="600"
+        text-anchor="end"
+        font-size="14"
+        font-weight="500"
+        font-family="'Inter', monospace"
+        fill="#94A3B8">github.com/Bidda-Ai/agent-compliance-scanner</text>
+
+  <!-- ── Top-right tag ───────────────────────────────────────────────────── -->
+  <g transform="translate(1100, 60)">
+    <rect rx="12" ry="12" width="120" height="36" fill="none" stroke="#D4AF37" stroke-width="1.5" opacity="0.8"/>
+    <text x="60" y="23" text-anchor="middle" font-size="16" font-weight="600" fill="#D4AF37" font-family="'Inter', system-ui, sans-serif">v0.1.0</text>
+  </g>
+
+  <!-- ── Decorative accent — subtle compliance check mark in top-right -->
+  <g transform="translate(960, 130)" opacity="0.18">
+    <circle cx="80" cy="80" r="78" fill="none" stroke="#D4AF37" stroke-width="2"/>
+    <circle cx="80" cy="80" r="60" fill="none" stroke="#D4AF37" stroke-width="1.2"/>
+    <path d="M 50 80 L 72 102 L 110 60" fill="none" stroke="#D4AF37" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+</svg>
