@@ -1,0 +1,60 @@
+name: 'Bidda Agent Compliance Scanner'
+description: 'Scan AI agent code on every PR for regulatory compliance considerations against the Bidda Sovereign Intelligence registry — 3,543 cryptographically-signed regulatory nodes.'
+author: 'Bidda'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  api-url:
+    description: 'Bidda API base URL'
+    required: false
+    default: 'https://bidda.com/api/v1'
+  paths:
+    description: 'Glob patterns of files to scan (newline-separated). Default: scan all changed files in the PR.'
+    required: false
+    default: ''
+  domains:
+    description: 'Comma-separated Bidda domains to prioritise (e.g., "AI Governance & Law,Cybersecurity"). Default: auto-detect from agent framework imports.'
+    required: false
+    default: ''
+  severity:
+    description: 'Minimum severity to surface — info | warn | block. Default: warn (advisory only).'
+    required: false
+    default: 'warn'
+  max-nodes:
+    description: 'Maximum number of compliance nodes to surface in the PR comment.'
+    required: false
+    default: '8'
+  fail-on:
+    description: 'Severity at which the action exits non-zero — never | warn | block. Default: never (always advisory).'
+    required: false
+    default: 'never'
+  github-token:
+    description: 'GitHub token used to post the PR comment. Default: github.token (provided automatically).'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  matched-nodes:
+    description: 'JSON array of Bidda node_ids surfaced for this PR.'
+    value: ${{ steps.scan.outputs.matched-nodes }}
+  agent-patterns-found:
+    description: 'Number of AI agent code patterns detected in the diff.'
+    value: ${{ steps.scan.outputs.agent-patterns-found }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run Bidda Agent Compliance Scanner
+      id: scan
+      shell: bash
+      env:
+        BIDDA_API_URL: ${{ inputs.api-url }}
+        BIDDA_PATHS: ${{ inputs.paths }}
+        BIDDA_DOMAINS: ${{ inputs.domains }}
+        BIDDA_SEVERITY: ${{ inputs.severity }}
+        BIDDA_MAX_NODES: ${{ inputs.max-nodes }}
+        BIDDA_FAIL_ON: ${{ inputs.fail-on }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      run: node ${{ github.action_path }}/scanner.cjs

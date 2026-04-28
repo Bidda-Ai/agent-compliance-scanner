@@ -1,0 +1,47 @@
+# .github/workflows/bidda-compliance.yml
+#
+# Drop this file into your repo at .github/workflows/bidda-compliance.yml
+# to enable Bidda Agent Compliance Scanner on every PR.
+#
+# Replace `Bidda-Ai/agent-compliance-scanner@v0` once the action is published
+# to GitHub Marketplace at github.com/Bidda-Ai/agent-compliance-scanner.
+
+name: Bidda Agent Compliance
+
+on:
+  pull_request:
+    branches: [main, master]
+  # Optional — also scan on pushes to feature branches
+  # push:
+  #   branches-ignore: [main, master]
+
+permissions:
+  # Required so the Action can post / update the compliance comment
+  pull-requests: write
+  contents: read
+
+jobs:
+  scan:
+    name: Scan AI agent code for compliance
+    runs-on: ubuntu-latest
+    # Skip if the PR description contains [skip-bidda]
+    if: "!contains(github.event.pull_request.body, '[skip-bidda]')"
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Bidda Compliance Scanner
+        uses: Bidda-Ai/agent-compliance-scanner@v0
+        with:
+          # Defaults are sensible — uncomment to override
+          # api-url: 'https://bidda.com/api/v1'
+          # paths: |
+          #   src/**/*.py
+          #   apps/**/*.ts
+          # domains: 'AI Governance & Law,Cybersecurity'
+          # severity: 'warn'
+          # max-nodes: '8'
+          # fail-on: 'never'  # Set to 'warn' or 'block' to gate merges
