@@ -1,9 +1,9 @@
 # Bidda Agent Compliance Scanner
 
-[![Bidda](https://img.shields.io/badge/Bidda-3,543%20regulatory%20nodes-blue)](https://bidda.com)
+[![Bidda](https://img.shields.io/badge/Bidda-3,680%20regulatory%20nodes-blue)](https://bidda.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Zero-config GitHub Action that scans AI agent code on every PR for regulatory compliance considerations** — against the [Bidda Sovereign Intelligence](https://bidda.com) registry of 3,543 cryptographically-signed regulatory nodes (EU AI Act, DORA, GDPR, NIS2, FERPA, FDA SaMD, NIST AI RMF, ISO/IEC 42001, and more).
+**Zero-config GitHub Action that scans AI agent code on every PR for regulatory compliance considerations** — against the [Bidda Sovereign Intelligence](https://bidda.com) registry of 3,680 cryptographically-signed regulatory nodes (EU AI Act, DORA, GDPR, NIS2, FERPA, FDA SaMD, NIST AI RMF, ISO/IEC 42001, and more).
 
 > **Advisory only by default.** This Action will never block your PR. It posts a single comment listing relevant compliance nodes the team should review. Detailed remediation logic is available via Bidda's $0.01 USDC unlock (L402/x402) or Skyfire bearer token.
 
