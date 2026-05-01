@@ -1,5 +1,5 @@
 name: 'Bidda Agent Compliance Scanner'
-description: 'Scan AI agent code on every PR for regulatory compliance considerations against the Bidda Sovereign Intelligence registry — 3,543 cryptographically-signed regulatory nodes.'
+description: 'Zero-config PR scanner for AI agent compliance — detects LangChain, CrewAI, MCP tools, biometrics, DORA ICT, EU AI Act Annex III patterns. Maps findings to 3,680 verified Bidda nodes. Advisory only, never blocks.'
 author: 'Bidda'
 branding:
   icon: 'shield'
