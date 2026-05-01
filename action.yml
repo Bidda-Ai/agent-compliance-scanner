@@ -1,5 +1,5 @@
 name: 'Bidda Agent Compliance Scanner'
-description: 'Zero-config PR scanner for AI agent compliance — detects LangChain, CrewAI, MCP tools, biometrics, DORA ICT, EU AI Act Annex III patterns. Maps findings to 3,680 verified Bidda nodes. Advisory only, never blocks.'
+description: 'PR scanner for EU AI Act, GDPR & DORA. Detects LangChain, CrewAI, MCP tools, biometrics & credit scoring. Never blocks.'
 author: 'Bidda'
 branding:
   icon: 'shield'
