@@ -387,7 +387,7 @@ function renderComment(findings, matchesByPattern) {
   }
 
   lines.push('---');
-  lines.push(`<sub>🛡️ Bidda Agent Compliance Scanner v0.1 · [Configure](https://github.com/marketplace/actions/bidda-agent-compliance-scanner) · [Suppress this comment](https://bidda.com/docs/scanner#suppress) · 7,766 cryptographically-signed regulatory nodes · Severity: \`${SEVERITY}\` · Fail-on: \`${FAIL_ON}\`</sub>`);
+  lines.push(`<sub>🛡️ Bidda Agent Compliance Scanner v0.1 · [Configure](https://github.com/marketplace/actions/bidda-agent-compliance-scanner) · [Suppress this comment](https://bidda.com/docs/scanner#suppress) · 8,700 cryptographically-signed regulatory nodes · Severity: \`${SEVERITY}\` · Fail-on: \`${FAIL_ON}\`</sub>`);
   return lines.join('\n');
 }
 
