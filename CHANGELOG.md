@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.6] - 2026-07-16
+
+### Changed
+- Documentation refresh. README badge, intro, and footer updated to the live registry size of 10,065 source-verified regulatory nodes across 39 sovereign pillars (was 9,762 / 39).
+
+### Notes
+- Documentation-only update. Pattern detection logic is unchanged (same 12 AI/agent patterns from 0.1.0).
+
 ## [0.1.5] - 2026-06-22
 
 ### Changed
