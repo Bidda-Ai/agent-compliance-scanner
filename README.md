@@ -2,6 +2,7 @@
 
 [![Bidda](https://img.shields.io/badge/Bidda-10,000%2B%20regulatory%20nodes-blue)](https://bidda.com)
 [![CISA Secure by Design](https://img.shields.io/badge/CISA-Secure%20by%20Design%20Pledge-blue)](https://bidda.com/cisa/secure-by-design)
+[![bidda-mcp MCP server](https://glama.ai/mcp/servers/Bidda-Ai/bidda-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Bidda-Ai/bidda-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Zero-config GitHub Action that scans AI agent code on every PR for regulatory compliance considerations** - against the [Bidda Sovereign Intelligence](https://bidda.com) registry of 10,000+ cryptographically-signed regulatory nodes across 39 sovereign pillars (EU AI Act, DORA, GDPR, NIS2, FERPA, FDA SaMD, NIST AI RMF, ISO/IEC 42001, MITRE ATT&CK/ATLAS/D3FEND/CAPEC, and more).
