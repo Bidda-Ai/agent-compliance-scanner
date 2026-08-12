@@ -5,7 +5,7 @@
 [![bidda-mcp MCP server](https://glama.ai/mcp/servers/Bidda-Ai/bidda-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Bidda-Ai/bidda-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Zero-config GitHub Action that scans AI agent code on every PR for regulatory compliance considerations** - against the [Bidda Sovereign Intelligence](https://bidda.com) registry of 10,000+ cryptographically-signed regulatory nodes across 39 sovereign pillars (EU AI Act, DORA, GDPR, NIS2, FERPA, FDA SaMD, NIST AI RMF, ISO/IEC 42001, MITRE ATT&CK/ATLAS/D3FEND/CAPEC, and more).
+**Zero-config GitHub Action that scans AI agent code on every PR for regulatory compliance considerations** - against the [Bidda Sovereign Intelligence](https://bidda.com) registry of 10,100+ cryptographically-signed regulatory nodes across 39 sovereign pillars (EU AI Act, DORA, GDPR, NIS2, FERPA, FDA SaMD, NIST AI RMF, ISO/IEC 42001, MITRE ATT&CK/ATLAS/D3FEND/CAPEC, and more).
 
 > **Advisory only by default.** This Action will never block your PR. It posts a single comment listing relevant compliance nodes the team should review. Detailed remediation logic is available via Bidda's $0.01 USDC unlock (L402/x402) or Skyfire bearer token.
 
@@ -146,7 +146,7 @@ MIT
 
 ## Built by
 
-[Bidda Sovereign Intelligence](https://bidda.com) - 10,000+ cryptographically-signed, primary-source-verified regulatory nodes across 39 sovereign pillars for autonomous AI agents. $0.01 USDC per unlock via L402/x402, or Skyfire bearer for enterprise.
+[Bidda Sovereign Intelligence](https://bidda.com) - 10,100+ cryptographically-signed, primary-source-verified regulatory nodes across 39 sovereign pillars for autonomous AI agents. $0.01 USDC per unlock via L402/x402, or Skyfire bearer for enterprise.
 
 Bidda is a public signatory of the [CISA Secure by Design Pledge](https://bidda.com/cisa/secure-by-design) and publishes a [CISA Cybersecurity Performance Goals crosswalk](https://bidda.com/cisa/cpg-crosswalk) mapping its registry to CISA's CPGs.
 
