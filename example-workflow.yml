@@ -11,7 +11,7 @@ name: Bidda Agent Compliance
 on:
   pull_request:
     branches: [main, master]
-  # Optional — also scan on pushes to feature branches
+  # Optional - also scan on pushes to feature branches
   # push:
   #   branches-ignore: [main, master]
 
@@ -36,7 +36,7 @@ jobs:
       - name: Run Bidda Compliance Scanner
         uses: Bidda-Ai/agent-compliance-scanner@v0
         with:
-          # Defaults are sensible — uncomment to override
+          # Defaults are sensible - uncomment to override
           # api-url: 'https://bidda.com/api/v1'
           # paths: |
           #   src/**/*.py

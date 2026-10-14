@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Bidda Agent Compliance Scanner — GitHub Action MVP
+ * Bidda Agent Compliance Scanner - GitHub Action MVP
  *
  * Runs on a PR. Scans changed files for AI agent code patterns
  * (LangChain, CrewAI, AutoGen, Pydantic AI, OpenAI SDK system prompts,
@@ -12,10 +12,10 @@
  *  - ADVISORY by default. Never block a PR unless the user explicitly opts in.
  *    Trust must be earned; one false-positive that blocks a release destroys it.
  *  - Discovery-tier only. The action is free; it never holds a paywall token.
- *    Detailed remediation lives behind the L402 unlock — that's the business model.
+ *    Detailed remediation lives behind the L402 unlock - that's the business model.
  *  - Pattern matches must be tight. Better to miss an issue than false-flag.
  *  - Every comment is signed with a node_id and a deep link to the public node page.
- *  - Zero npm dependencies — runs on Node 20 stdlib only. Faster install, smaller
+ *  - Zero npm dependencies - runs on Node 20 stdlib only. Faster install, smaller
  *    attack surface, easier to audit.
  *  - Idempotent. Updates the same comment on each push; never spams the PR thread.
  */
@@ -40,7 +40,7 @@ const GH_REPO    = process.env.GITHUB_REPOSITORY;
 
 const COMMENT_MARKER = '<!-- bidda-compliance-scanner -->';
 
-// ─── Pattern library — kept tight to avoid false positives ───────────────────
+// ─── Pattern library - kept tight to avoid false positives ───────────────────
 //
 // Each pattern has:
 //   id:           short identifier
@@ -50,13 +50,13 @@ const COMMENT_MARKER = '<!-- bidda-compliance-scanner -->';
 //   description:  one-liner shown in the PR comment
 //
 const PATTERNS = [
-  // — AI agent frameworks —
+  // - AI agent frameworks -
   {
     id: 'langchain-import',
     regex: /\b(?:from\s+langchain|import\s+\{?[^}]*\}?\s+from\s+['"]langchain|require\(['"]langchain)/,
     domains: ['AI Governance & Law'],
     keywords: ['LangChain', 'AI agent', 'autonomous'],
-    description: 'LangChain agent code detected — review against AI Governance compliance nodes.',
+    description: 'LangChain agent code detected - review against AI Governance compliance nodes.',
   },
   {
     id: 'crewai-import',
@@ -79,13 +79,13 @@ const PATTERNS = [
     keywords: ['Pydantic AI', 'agent'],
     description: 'Pydantic AI agent code detected.',
   },
-  // — Direct LLM providers (system prompts often live here) —
+  // - Direct LLM providers (system prompts often live here) -
   {
     id: 'openai-system-prompt',
     regex: /["']role["']\s*:\s*["']system["']/,
     domains: ['AI Governance & Law'],
     keywords: ['system prompt', 'AI transparency'],
-    description: 'OpenAI-style system prompt detected — verify transparency disclosures and human oversight.',
+    description: 'OpenAI-style system prompt detected - verify transparency disclosures and human oversight.',
   },
   {
     id: 'anthropic-system',
@@ -94,51 +94,51 @@ const PATTERNS = [
     keywords: ['system prompt', 'AI'],
     description: 'Anthropic-style system parameter detected.',
   },
-  // — MCP server / tool exposure —
+  // - MCP server / tool exposure -
   {
     id: 'mcp-tool-definition',
     regex: /(?:^|\W)(?:@mcp\.tool|MCP\s*Server|@server\.tool|FastMCP)/m,
     domains: ['AI Governance & Law', 'Cybersecurity'],
     keywords: ['MCP', 'tool', 'agent authentication'],
-    description: 'MCP tool/server definition detected — review against agent authorisation nodes.',
+    description: 'MCP tool/server definition detected - review against agent authorisation nodes.',
   },
-  // — High-risk AI use cases (Annex III of EU AI Act) —
+  // - High-risk AI use cases (Annex III of EU AI Act) -
   {
     id: 'biometric-identification',
     regex: /\b(?:face_recognition|facial_recognition|biometric_identification|FaceNet|DeepFace)\b/,
     domains: ['AI Governance & Law'],
     keywords: ['biometric', 'high-risk AI', 'EU AI Act'],
-    description: 'Biometric identification code detected — likely high-risk AI under EU AI Act Annex III.',
+    description: 'Biometric identification code detected - likely high-risk AI under EU AI Act Annex III.',
   },
   {
     id: 'hr-screening',
     regex: /\b(?:resume_scor|cv_scor|candidate_rank|hiring_decision|applicant_rank)/i,
     domains: ['AI Governance & Law', 'Workplace'],
     keywords: ['employment AI', 'algorithmic hiring', 'EU AI Act high-risk', 'NYC Local Law 144'],
-    description: 'AI-driven hiring/screening detected — high-risk under EU AI Act + NYC LL 144 bias audit applies.',
+    description: 'AI-driven hiring/screening detected - high-risk under EU AI Act + NYC LL 144 bias audit applies.',
   },
   {
     id: 'credit-scoring',
     regex: /\b(?:credit_scor|credit_decision|loan_approval|creditworthiness)/i,
     domains: ['AI Governance & Law', 'Banking & Global Finance'],
     keywords: ['credit scoring', 'ECOA', 'GDPR Article 22', 'high-risk AI'],
-    description: 'AI credit decisioning detected — GDPR Art 22 + ECOA + EU AI Act high-risk apply.',
+    description: 'AI credit decisioning detected - GDPR Art 22 + ECOA + EU AI Act high-risk apply.',
   },
-  // — Data scraping & web access (GDPR/DPDPA risk) —
+  // - Data scraping & web access (GDPR/DPDPA risk) -
   {
     id: 'web-scraping',
     regex: /\b(?:WebScraper|BeautifulSoup|playwright\.|puppeteer\.|requests\.get\([^)]*['"]https?)/,
     domains: ['Legal & IP Sovereignty', 'AI Governance & Law'],
     keywords: ['web scraping', 'GDPR', 'data minimisation', 'TDM exception'],
-    description: 'Web scraping / browser automation detected — review GDPR + EU AI Act + national TDM exceptions.',
+    description: 'Web scraping / browser automation detected - review GDPR + EU AI Act + national TDM exceptions.',
   },
-  // — DORA-relevant code patterns (financial entities only) —
+  // - DORA-relevant code patterns (financial entities only) -
   {
     id: 'financial-ict-third-party',
     regex: /\b(?:azure|aws|gcp|cloudflare|datadog|stripe|plaid)\b.*\b(?:critical|production|prod)/i,
     domains: ['Banking & Global Finance', 'Cybersecurity'],
     keywords: ['DORA', 'ICT third-party', 'critical function'],
-    description: 'Critical/production third-party ICT service usage — DORA Article 28 + RTS 2024/1773 apply if you are an EU financial entity.',
+    description: 'Critical/production third-party ICT service usage - DORA Article 28 + RTS 2024/1773 apply if you are an EU financial entity.',
   },
 ];
 
@@ -271,7 +271,7 @@ async function scanFiles(files) {
     if (/\.(min\.)?(js|css)\b|node_modules\/|vendor\/|dist\/|build\//.test(filename)) continue;
     if (!/\.(py|js|jsx|ts|tsx|cjs|mjs|json|yaml|yml|md)$/.test(filename)) continue;
 
-    // Read patch content (the diff hunk) — only flag matches in ADDED lines
+    // Read patch content (the diff hunk) - only flag matches in ADDED lines
     const patch = file.patch || '';
     const addedLines = patch.split('\n').filter(l => l.startsWith('+') && !l.startsWith('+++'));
     const addedText = addedLines.map(l => l.slice(1)).join('\n');
@@ -350,7 +350,7 @@ function renderComment(findings, matchesByPattern) {
   lines.push('');
   lines.push('## 🛡️ Bidda Agent Compliance Scanner');
   lines.push('');
-  lines.push(`Detected ${findings.length} AI/agent code pattern(s) in this PR. Below are relevant compliance nodes from the [Bidda registry](https://bidda.com) — **advisory only**, not a legal opinion.`);
+  lines.push(`Detected ${findings.length} AI/agent code pattern(s) in this PR. Below are relevant compliance nodes from the [Bidda registry](https://bidda.com) - **advisory only**, not a legal opinion.`);
   lines.push('');
 
   // Group findings by pattern_id
@@ -375,7 +375,7 @@ function renderComment(findings, matchesByPattern) {
       const nodeUrl = `https://bidda.com/nodes/${node.node_id}`;
       const apiUrl  = `${API_URL}/nodes/${node.node_id}`;
       const vaultUrl = `${API_URL}/vault/nodes/${node.node_id}`;
-      lines.push(`- [\`${node.node_id}\`](${nodeUrl}) — ${node.title || '(no title)'}`);
+      lines.push(`- [\`${node.node_id}\`](${nodeUrl}) - ${node.title || '(no title)'}`);
       const bluf = (node.bluf || '').replace(/\s+/g, ' ').trim();
       if (bluf) lines.push(`  > ${bluf.slice(0, 200)}${bluf.length > 200 ? '…' : ''}`);
       lines.push(`  - Free metadata: ${apiUrl}`);
@@ -419,13 +419,13 @@ async function postOrUpdateComment(prNumber, body) {
 async function main() {
   const event = readEvent();
   if (!event) {
-    console.error('No event payload — running outside GitHub Actions? Exiting.');
+    console.error('No event payload - running outside GitHub Actions? Exiting.');
     process.exit(0);
   }
 
   const prNumber = event.pull_request?.number || event.number;
   if (!prNumber) {
-    console.log('Not a pull_request event — nothing to scan.');
+    console.log('Not a pull_request event - nothing to scan.');
     process.exit(0);
   }
 
@@ -438,7 +438,7 @@ async function main() {
   console.log(`Detected ${findings.length} AI/agent pattern(s) in added lines.`);
 
   if (findings.length === 0) {
-    console.log('No matches — PR is clean.');
+    console.log('No matches - PR is clean.');
     setOutput('agent-patterns-found', '0');
     setOutput('matched-nodes', '[]');
     process.exit(0);
@@ -461,7 +461,7 @@ async function main() {
   setOutput('agent-patterns-found', String(findings.length));
   setOutput('matched-nodes', JSON.stringify(matchedNodeIds));
 
-  // Exit code policy — advisory by default
+  // Exit code policy - advisory by default
   if (FAIL_ON === 'block' && SEVERITY === 'block') {
     process.exit(1);
   }
